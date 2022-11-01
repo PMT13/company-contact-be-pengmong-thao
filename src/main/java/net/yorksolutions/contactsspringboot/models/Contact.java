@@ -1,16 +1,18 @@
 package net.yorksolutions.contactsspringboot.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.AutoConfiguration;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity  // tells JPA to create a table called contact and have columns that match up with the contact class
+@JsonIdentityInfo(generator= ObjectIdGenerators.PropertyGenerator.class, property="id")
 public class Contact {
 
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
     public long id;
 
     public String firstName;
@@ -18,7 +20,9 @@ public class Contact {
     public String displayName;
     public String email;
 
+    // https://www.baeldung.com/jackson-bidirectional-relationships-and-infinite-recursion
     @ManyToMany
+    @JsonBackReference
     public Set<Company> company;
 
     public Set<Company> getCompany() {

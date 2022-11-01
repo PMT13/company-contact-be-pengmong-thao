@@ -23,7 +23,6 @@ public class CompanyService {
     public ArrayList<Company> getCompanies() {
         ArrayList<Company> companiesList = new ArrayList<>();
         Iterable<Company> found = this.repo.findAll();
-
         for(Company company : found)
         {
             companiesList.add(company);
@@ -44,9 +43,11 @@ public class CompanyService {
         foundCompany.contactList.add(foundContact);
         foundContact.company.add(foundCompany);
         this.repo.save(foundCompany);
+        this.contactRepo.save((foundContact));
     }
 
     public Set<Contact> getContacts(long id) {
+        System.out.println(id);
         Company company = this.repo.findById(id).orElseThrow();
         return company.contactList;
     }

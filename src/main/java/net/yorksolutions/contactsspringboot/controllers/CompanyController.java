@@ -3,12 +3,9 @@ package net.yorksolutions.contactsspringboot.controllers;
 import net.yorksolutions.contactsspringboot.models.Company;
 import net.yorksolutions.contactsspringboot.models.Contact;
 import net.yorksolutions.contactsspringboot.services.CompanyService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Set;
 
 @RestController
@@ -38,14 +35,13 @@ public class CompanyController {
     }
 
     @PostMapping("/add")
-    public void addContact(@RequestBody Company newCompany){
+    public void addCompany(@RequestBody Company newCompany){
         this.service.addCompany(newCompany);
     }
 
     @PostMapping("/addContact")
-    public ResponseEntity<String> addContact(@RequestParam long contactId,@RequestParam long companyId){
+    public void addContact(@RequestParam long contactId,@RequestParam long companyId){
         this.service.addContact(contactId,companyId);
-        return ResponseEntity.status(HttpStatus.OK).body("Successfully Added Contact");
     }
 
     @DeleteMapping("/delete/{id}")
